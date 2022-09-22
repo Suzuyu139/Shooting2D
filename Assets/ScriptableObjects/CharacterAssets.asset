@@ -13,4 +13,8 @@ MonoBehaviour:
   m_Name: CharacterAssets
   m_EditorClassIdentifier: 
   _playerParameter:
+    _characterId: 1001
+    _name: "\u30D7\u30EC\u30A4\u30E4\u30FC"
     _characterObject: {fileID: 8609292690456077033, guid: ec2c56336aa9af14eb6e15944b826503, type: 3}
+    _bulletAssets:
+    - {fileID: 11400000, guid: e2f96c05f9ea2e54ab758db54c3f6b2c, type: 2}

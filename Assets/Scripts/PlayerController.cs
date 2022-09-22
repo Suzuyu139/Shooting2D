@@ -80,7 +80,7 @@ public class PlayerController : CharacterControllerBase
             if (_attackCount <= 0.0f)
             {
                 var bulletController = _bulletPool.GetBulletController(_bulletTransform.position, this.transform.rotation);
-                bulletController.Shot(_bulletPool, _direction);
+                bulletController.Shot(_bulletAssets[0], _bulletPool, _direction);
                 _attackCount += Time.deltaTime;
             }
         }
