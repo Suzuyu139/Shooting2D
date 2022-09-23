@@ -6,13 +6,14 @@ using System;
 
 public class BulletPool : PoolManager
 {
-    public BulletController GetBulletController(Vector3 position, Quaternion rotation)
+    public T GetBulletComponent<T>(GameObject prefab, Vector3 position, Quaternion rotation)
     {
+        _prefab = prefab;
         var obj = _pool.Get();
         Transform tf = obj.transform;
         tf.position = position;
         tf.rotation = rotation;
-        return obj.GetComponent<BulletController>();
+        return obj.GetComponent<T>();
     }
 
     public void Release(GameObject obj, float time)

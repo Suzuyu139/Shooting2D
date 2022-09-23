@@ -7,7 +7,7 @@ public class PoolManager : MonoBehaviour
 {
     protected ObjectPool<GameObject> _pool;
 
-    [SerializeField] protected GameObject _prefab;
+    protected GameObject _prefab;
 
     // Start is called before the first frame update
     void Start()
@@ -43,8 +43,9 @@ public class PoolManager : MonoBehaviour
         Destroy(obj);
     }
 
-    public GameObject GetGameObject(Vector3 position, Quaternion rotation)
+    public GameObject GetGameObject(GameObject prefab, Vector3 position, Quaternion rotation)
     {
+        _prefab = prefab;
         GameObject obj = _pool.Get();
         Transform tf = obj.transform;
         tf.position = position;
