@@ -16,5 +16,11 @@ MonoBehaviour:
     _characterId: 1001
     _name: "\u30D7\u30EC\u30A4\u30E4\u30FC"
     _characterObject: {fileID: 8609292690456077033, guid: ec2c56336aa9af14eb6e15944b826503, type: 3}
-    _bulletObjects:
-    - {fileID: 5912995196536386928, guid: d1837a7760770bc4baa438978b2b5999, type: 3}
+    _normalBulletId1: 10001
+    _normalBulletId2: 0
+    _normalBulletId3: 0
+    _specialBulletId1: 0
+    _specialBulletId2: 0
+    _specialBulletId3: 0
+    _bulletControllers:
+    - {fileID: 5912995196536386935, guid: d1837a7760770bc4baa438978b2b5999, type: 3}

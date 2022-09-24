@@ -78,7 +78,13 @@ public class PlayerController : CharacterControllerBase
         {
             if (_attackCount <= 0.0f)
             {
-                var bulletController = _bulletPool.GetBulletComponent<PlayerBulletStraightController>(_bulletObjects[0], _bulletTransform.position, this.transform.rotation);
+                var bullet = _parameter.BulletControllers.Find(x => x.BulletId == _parameter.NormalBulletId1);
+                if(!bullet)
+                {
+                    Debug.LogError($"íeÇ™å©Ç¬Ç©ÇËÇ‹ÇπÇÒÇ≈ÇµÇΩÅB : {nameof(_parameter.NormalBulletId1)}");
+                    return;
+                }
+                var bulletController = _bulletPool.GetBulletComponent<PlayerBulletStraightController>(bullet.gameObject, _bulletTransform.position, this.transform.rotation);
                 bulletController.Shot(_bulletPool, _direction);
                 _attackCount += Time.deltaTime;
             }

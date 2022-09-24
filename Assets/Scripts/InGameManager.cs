@@ -33,7 +33,7 @@ public class InGameManager : MonoBehaviour
     private void SpawnPlayer()
     {
         var playerController = Instantiate(_characterAssets.PlayerParameter.CharacterObject, _playerSpawnTransform.position, Quaternion.identity).GetComponent<PlayerController>();
-        playerController.Initialize(_characterAssets.PlayerParameter.BulletObjects, _bulletPool);
+        playerController.Initialize(_characterAssets.PlayerParameter, _bulletPool);
     }
 
     private void DebugEndGame()

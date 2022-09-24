@@ -6,11 +6,11 @@ public class CharacterControllerBase : MonoBehaviour
 {
     protected BulletPool _bulletPool = null;
     protected bool _isPaused = false;
-    protected GameObject[] _bulletObjects = null;
+    protected CharacterAssets.CharacterParameter _parameter = null;
 
-    public void Initialize(GameObject[] bulletObjects, BulletPool pool)
+    public void Initialize(CharacterAssets.CharacterParameter parameter, BulletPool pool)
     {
-        _bulletObjects = bulletObjects;
+        _parameter = parameter;
         _bulletPool = pool;
     }
 }
