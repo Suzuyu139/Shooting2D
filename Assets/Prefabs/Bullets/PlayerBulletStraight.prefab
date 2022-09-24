@@ -169,5 +169,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 3683036812563374517}
+  _bulletId: 10001
   _speed: 1000
-  _Timer: 2
+  _AliveTimer: 4

@@ -66,7 +66,6 @@ public class PlayerController : CharacterControllerBase
         mousePos.z -= Camera.main.transform.position.z;
         _direction = (mousePos - this.transform.position).normalized;
 
-
         this.transform.rotation = Quaternion.FromToRotation(Vector3.up, _direction);
     }
 

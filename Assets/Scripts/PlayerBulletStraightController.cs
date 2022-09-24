@@ -12,6 +12,6 @@ public class PlayerBulletStraightController : BulletControllerBase
         }
 
         _rigidbody.AddForce(direction * _speed);
-        _bulletPool.Release(this.gameObject, _Timer);
+        _bulletPool.Release(this.gameObject, _AliveTimer);
     }
 }
