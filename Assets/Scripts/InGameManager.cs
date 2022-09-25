@@ -7,9 +7,23 @@ using UnityEngine.Pool;
 
 public class InGameManager : MonoBehaviour
 {
+    public static readonly float ScreenLimitPosX = 9.0f;
+    public static readonly float ScreenLimitPosY = 5.0f;
+
     [SerializeField] private CharacterAssets _characterAssets = null;
     [SerializeField] private BulletPool _bulletPool = null;
     [SerializeField] private Transform _playerSpawnTransform = null;
+
+    public static InGameManager Instance;
+    public PlayerController Player;
+
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -32,8 +46,8 @@ public class InGameManager : MonoBehaviour
 
     private void SpawnPlayer()
     {
-        var playerController = Instantiate(_characterAssets.PlayerParameter.CharacterObject, _playerSpawnTransform.position, Quaternion.identity).GetComponent<PlayerController>();
-        playerController.Initialize(_characterAssets.PlayerParameter, _bulletPool);
+        Instance.Player = Instantiate(_characterAssets.PlayerParameter.CharacterObject, _playerSpawnTransform.position, Quaternion.identity).GetComponent<PlayerController>();
+        Instance.Player.Initialize(_characterAssets.PlayerParameter, _bulletPool);
     }
 
     private void DebugEndGame()
@@ -48,7 +62,7 @@ public class InGameManager : MonoBehaviour
 #if UNITY_EDITOR
                 UnityEditor.EditorApplication.isPlaying = false;    //ゲームプレイ終了
 #else
-                Application.Quit();//ゲームプレイ終了
+                Application.Quit(); //ゲームプレイ終了
 #endif
             });
 #endif

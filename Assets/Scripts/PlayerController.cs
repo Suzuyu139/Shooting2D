@@ -9,10 +9,6 @@ public class PlayerController : CharacterControllerBase
 
     [SerializeField] private Transform _bulletTransform = null;
 
-    /// <summary> プレイヤー移動速度 </summary>
-    [SerializeField] private float _speed = 1.0f;
-    [SerializeField] private float _attackInterval = 0.5f;
-
     private Vector2 _direction = Vector2.zero;
     private float _attackCount = 0.0f;
 
@@ -48,7 +44,7 @@ public class PlayerController : CharacterControllerBase
         // 移動処理
         move.x = Input.GetAxisRaw("Horizontal");
         move.y = Input.GetAxisRaw("Vertical");
-        pos += move * _speed * Time.deltaTime;
+        pos += move * _settings.MoveSpeed * Time.deltaTime;
 
         // 画面外に出ないようにする
         pos = new Vector3(Mathf.Clamp(pos.x, -_posLimitX, _posLimitX), Mathf.Clamp(pos.y, -_posLimitY, _posLimitY), pos.z);
@@ -93,7 +89,7 @@ public class PlayerController : CharacterControllerBase
         if(_attackCount > 0.0f)
         {
             _attackCount += Time.deltaTime;
-            if (_attackCount >= _attackInterval)
+            if (_attackCount >= _settings.AttackInterval)
             {
                 _attackCount = 0.0f;
             }

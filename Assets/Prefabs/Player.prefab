@@ -202,9 +202,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f897f82e29daf0746868cb2fb9a4864e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rigidbody: {fileID: 91147107122331901}
+  _settings:
+    _moveSpeed: 4
+    _attackInterval: 0.5
   _bulletTransform: {fileID: 7091339388911600420}
-  _speed: 4
-  _attackInterval: 0.5
 --- !u!1 &8609292690508913927
 GameObject:
   m_ObjectHideFlags: 0
