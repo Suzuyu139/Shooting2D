@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class EnemyController : CharacterControllerBase
+public class EnemyStraightController : CharacterControllerBase
 {
     private Vector3 _startPosition = Vector3.zero;
     private Vector3 _endPosition = Vector3.zero;
@@ -17,9 +17,13 @@ public class EnemyController : CharacterControllerBase
         {
             _endPosition.y *= -1.0f;
         }
-        else
+        else if(_startPosition.y < InGameManager.ScreenLimitPosY && _startPosition.y > -InGameManager.ScreenLimitPosY)
         {
             _endPosition.x *= -1.0f;
+        }
+        else
+        {
+            _endPosition *= -1.0f;
         }
         Move();
         Destroy(gameObject, _settings.LifeTimer);
@@ -37,6 +41,17 @@ public class EnemyController : CharacterControllerBase
 
     private void Move()
     {
-        this.transform.DOMove(_endPosition, _settings.LifeTimer).SetEase(Ease.Linear); ;
+        this.transform.DOMove(_endPosition, _settings.LifeTimer).SetEase(Ease.Linear);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Enemy" || collision.tag == "EnemyBullet")
+        {
+            return;
+        }
+
+        this.transform.DOKill();
+        Destroy(gameObject);
     }
 }
