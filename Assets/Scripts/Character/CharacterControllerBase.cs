@@ -34,6 +34,31 @@ public class CharacterControllerBase : MonoBehaviour
         _isPlayer = isPlayer;
     }
 
+    private void Start()
+    {
+        OnInitialize();
+    }
+
+    protected virtual void OnInitialize()
+    {
+
+    }
+
+    private void Update()
+    {
+        if(_isPaused)
+        {
+            return;
+        }
+
+        OnUpdate();
+    }
+
+    protected virtual void OnUpdate()
+    {
+
+    }
+
     private void OnDestroy()
     {
         this.transform.DOKill();

@@ -12,19 +12,14 @@ public class PlayerController : CharacterControllerBase
     private Vector2 _direction = Vector2.zero;
     private float _attackCount = 0.0f;
 
-    // Start is called before the first frame update
-    void Start()
+    protected override void OnInitialize()
     {
-        
+        base.OnInitialize();
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void OnUpdate()
     {
-        if(_isPaused)
-        {
-            return;
-        }
+        base.OnUpdate();
 
         Move();
 
