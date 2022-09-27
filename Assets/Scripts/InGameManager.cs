@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
-using UnityEngine.Pool;
+using UnityEngine.SceneManagement;
 
 public class InGameManager : MonoBehaviour
 {
@@ -15,7 +15,7 @@ public class InGameManager : MonoBehaviour
     [SerializeField] private Transform _playerSpawnTransform = null;
 
     public static InGameManager Instance;
-    public PlayerController Player;
+    public PlayerController Player { get; private set; }
 
     private void Awake()
     {
@@ -47,7 +47,7 @@ public class InGameManager : MonoBehaviour
     private void SpawnPlayer()
     {
         Instance.Player = Instantiate(_characterAssets.PlayerParameter.CharacterObject, _playerSpawnTransform.position, Quaternion.identity).GetComponent<PlayerController>();
-        Instance.Player.Initialize(_characterAssets.PlayerParameter, _bulletPool);
+        Instance.Player.Initialize(_characterAssets.PlayerParameter, _bulletPool, true);
     }
 
     private void DebugEndGame()

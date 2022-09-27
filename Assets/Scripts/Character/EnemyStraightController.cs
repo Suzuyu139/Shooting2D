@@ -43,15 +43,4 @@ public class EnemyStraightController : CharacterControllerBase
     {
         this.transform.DOMove(_endPosition, _settings.LifeTimer).SetEase(Ease.Linear);
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.tag == "Enemy" || collision.tag == "EnemyBullet")
-        {
-            return;
-        }
-
-        this.transform.DOKill();
-        Destroy(gameObject);
-    }
 }
