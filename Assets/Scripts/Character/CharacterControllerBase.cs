@@ -11,12 +11,12 @@ public class CharacterControllerBase : MonoBehaviour
         [SerializeField] private bool _isPlayer = false;
         [SerializeField] private float _moveSpeed = 1.0f;
         [SerializeField] private float _attackInterval = 0.5f;
-        [SerializeField] private float _lifeTimer = 2.0f;
+        [SerializeField] private float _moveTime = 2.0f;
 
         public bool IsPlayer => _isPlayer;
         public float MoveSpeed => _moveSpeed;
         public float AttackInterval => _attackInterval;
-        public float LifeTimer => _lifeTimer;
+        public float MoveTime => _moveTime;
     }
 
     [SerializeField] protected Rigidbody2D _rigidbody = null;
@@ -26,6 +26,14 @@ public class CharacterControllerBase : MonoBehaviour
     protected BulletPool _bulletPool = null;
     protected bool _isPaused = false;
     protected CharacterAssets.CharacterParameter _parameter = null;
+    protected Vector2 _direction = Vector2.zero;
+    protected float _attackCount = 0.0f;
+    protected BulletControllerBase _normalBullet1 = null;
+    protected BulletControllerBase _normalBullet2 = null;
+    protected BulletControllerBase _normalBullet3 = null;
+    protected BulletControllerBase _specialBullet1 = null;
+    protected BulletControllerBase _specialBullet2 = null;
+    protected BulletControllerBase _specialBullet3 = null;
 
     private void Start()
     {
@@ -44,19 +52,22 @@ public class CharacterControllerBase : MonoBehaviour
             _parameter = manager.CharacterAssets.EnemyParameters.Find(x => x.CharacterId == _characterId);
         }
         _bulletPool = manager.BulletPool;
+        _normalBullet1 = _parameter.BulletControllers.Find(x => x.BulletId == _parameter.NormalBulletId1);
     }
 
     private void Update()
-    {
-        OnUpdate();
-    }
-
-    protected virtual void OnUpdate()
     {
         if (_isPaused)
         {
             return;
         }
+
+        OnUpdate();
+    }
+
+    protected virtual void OnUpdate()
+    {
+        
     }
 
     private void OnDestroy()

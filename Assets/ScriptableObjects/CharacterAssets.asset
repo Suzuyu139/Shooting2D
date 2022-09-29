@@ -28,10 +28,11 @@ MonoBehaviour:
   - _characterId: 2001
     _name: "\u65751"
     _characterObject: {fileID: 670669232791060743, guid: 1dcd073863d7df34b94211137c6e4339, type: 3}
-    _normalBulletId1: 0
+    _normalBulletId1: 20001
     _normalBulletId2: 0
     _normalBulletId3: 0
     _specialBulletId1: 0
     _specialBulletId2: 0
     _specialBulletId3: 0
-    _bulletControllers: []
+    _bulletControllers:
+    - {fileID: 5912995196536386935, guid: d78c24afb6e6e5046ba2ac52bed38fdd, type: 3}

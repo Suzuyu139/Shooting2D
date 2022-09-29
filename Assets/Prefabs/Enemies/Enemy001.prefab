@@ -99,8 +99,8 @@ MonoBehaviour:
   _settings:
     _isPlayer: 0
     _moveSpeed: 100
-    _attackInterval: 0.5
-    _lifeTimer: 5
+    _attackInterval: 1
+    _moveTime: 5
 --- !u!1 &7381753647722784122
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ using UnityEngine.Pool;
 public class PoolManager : MonoBehaviour
 {
     protected ObjectPool<GameObject> _pool;
+    //protected ListPool<GameObject> _pool;
 
     protected GameObject _prefab;
 

@@ -9,9 +9,6 @@ public class PlayerController : CharacterControllerBase
 
     [SerializeField] private Transform _bulletTransform = null;
 
-    private Vector2 _direction = Vector2.zero;
-    private float _attackCount = 0.0f;
-
     protected override void OnInitialize()
     {
         base.OnInitialize();
@@ -69,13 +66,12 @@ public class PlayerController : CharacterControllerBase
         {
             if (_attackCount <= 0.0f)
             {
-                var bullet = _parameter.BulletControllers.Find(x => x.BulletId == _parameter.NormalBulletId1);
-                if(!bullet)
+                if(!_normalBullet1)
                 {
                     Debug.LogError($"íeÇ™å©Ç¬Ç©ÇËÇ‹ÇπÇÒÇ≈ÇµÇΩÅB : {nameof(_parameter.NormalBulletId1)}");
                     return;
                 }
-                var bulletController = _bulletPool.GetBulletComponent<PlayerBulletStraightController>(bullet.gameObject, _bulletTransform.position, this.transform.rotation);
+                var bulletController = _bulletPool.GetBulletComponent<BulletStraightController>(_normalBullet1.gameObject, _bulletTransform.position, this.transform.rotation);
                 bulletController.Shot(_bulletPool, _direction);
                 _attackCount += Time.deltaTime;
             }

@@ -26,16 +26,34 @@ public class EnemyStraightController : CharacterControllerBase
             _endPosition *= -1.0f;
         }
         Move();
-        Destroy(gameObject, _settings.LifeTimer);
+        Destroy(gameObject, _settings.MoveTime);
     }
 
     protected override void OnUpdate()
     {
         base.OnUpdate();
+        Attack();
     }
 
     private void Move()
     {
-        this.transform.DOMove(_endPosition, _settings.LifeTimer).SetEase(Ease.Linear);
+        this.transform.DOMove(_endPosition, _settings.MoveTime).SetEase(Ease.Linear);
+    }
+
+    private void Attack()
+    {
+        _attackCount += Time.deltaTime;
+        if(_attackCount >= _settings.AttackInterval)
+        {
+            if (!_normalBullet1)
+            {
+                Debug.LogError($"íeÇ™å©Ç¬Ç©ÇËÇ‹ÇπÇÒÇ≈ÇµÇΩÅB : {nameof(_parameter.NormalBulletId1)}");
+                return;
+            }
+            var bulletController = _bulletPool.GetBulletComponent<BulletStraightController>(_normalBullet1.gameObject, this.transform.position, this.transform.rotation);
+            _direction = (InGameManager.Instance.Player.transform.position - this.transform.position).normalized;
+            bulletController.Shot(_bulletPool, _direction);
+            _attackCount = 0.0f;
+        }
     }
 }
