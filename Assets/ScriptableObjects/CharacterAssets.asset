@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 872ea461a9054974199dbb7f8a9d0881, type: 3}
   m_Name: CharacterAssets
   m_EditorClassIdentifier: 
-  _playerParameter:
-    _characterId: 1001
+  _playerParameters:
+  - _characterId: 1001
     _name: "\u30D7\u30EC\u30A4\u30E4\u30FC"
     _characterObject: {fileID: 8609292690456077033, guid: ec2c56336aa9af14eb6e15944b826503, type: 3}
     _normalBulletId1: 10001
@@ -24,3 +24,14 @@ MonoBehaviour:
     _specialBulletId3: 0
     _bulletControllers:
     - {fileID: 5912995196536386935, guid: d1837a7760770bc4baa438978b2b5999, type: 3}
+  _enemyParameters:
+  - _characterId: 2001
+    _name: "\u65751"
+    _characterObject: {fileID: 670669232791060743, guid: 1dcd073863d7df34b94211137c6e4339, type: 3}
+    _normalBulletId1: 0
+    _normalBulletId2: 0
+    _normalBulletId3: 0
+    _specialBulletId1: 0
+    _specialBulletId2: 0
+    _specialBulletId3: 0
+    _bulletControllers: []

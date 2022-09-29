@@ -95,7 +95,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 5159994032534182784}
+  _characterId: 2001
   _settings:
+    _isPlayer: 0
     _moveSpeed: 100
     _attackInterval: 0.5
     _lifeTimer: 5

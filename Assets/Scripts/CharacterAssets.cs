@@ -31,7 +31,9 @@ public class CharacterAssets : ScriptableObject
         public List<BulletControllerBase> BulletControllers => _bulletControllers;
     }
 
-    [SerializeField] private CharacterParameter _playerParameter;
+    [SerializeField] private List<CharacterParameter> _playerParameters;
+    [SerializeField] private List<CharacterParameter> _enemyParameters;
 
-    public CharacterParameter PlayerParameter => _playerParameter;
+    public List<CharacterParameter> PlayerParameters => _playerParameters;
+    public List<CharacterParameter> EnemyParameters => _enemyParameters;
 }

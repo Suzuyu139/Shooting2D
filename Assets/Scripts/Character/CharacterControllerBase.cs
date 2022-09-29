@@ -8,31 +8,24 @@ public class CharacterControllerBase : MonoBehaviour
     [System.Serializable]
     public class CharacterSettings
     {
-        /// <summary> ˆÚ“®‘¬“x </summary>
+        [SerializeField] private bool _isPlayer = false;
         [SerializeField] private float _moveSpeed = 1.0f;
         [SerializeField] private float _attackInterval = 0.5f;
         [SerializeField] private float _lifeTimer = 2.0f;
 
+        public bool IsPlayer => _isPlayer;
         public float MoveSpeed => _moveSpeed;
         public float AttackInterval => _attackInterval;
         public float LifeTimer => _lifeTimer;
     }
 
     [SerializeField] protected Rigidbody2D _rigidbody = null;
-
+    [SerializeField] protected int _characterId = 0;
     [SerializeField] protected CharacterSettings _settings;
 
     protected BulletPool _bulletPool = null;
     protected bool _isPaused = false;
     protected CharacterAssets.CharacterParameter _parameter = null;
-    protected bool _isPlayer = false;
-
-    public void Initialize(CharacterAssets.CharacterParameter parameter, BulletPool pool, bool isPlayer)
-    {
-        _parameter = parameter;
-        _bulletPool = pool;
-        _isPlayer = isPlayer;
-    }
 
     private void Start()
     {
@@ -41,22 +34,29 @@ public class CharacterControllerBase : MonoBehaviour
 
     protected virtual void OnInitialize()
     {
-
+        var manager = InGameManager.Instance;
+        if(_settings.IsPlayer)
+        {
+            _parameter = manager.CharacterAssets.PlayerParameters.Find(x => x.CharacterId == _characterId);
+        }
+        else
+        {
+            _parameter = manager.CharacterAssets.EnemyParameters.Find(x => x.CharacterId == _characterId);
+        }
+        _bulletPool = manager.BulletPool;
     }
 
     private void Update()
     {
-        if(_isPaused)
-        {
-            return;
-        }
-
         OnUpdate();
     }
 
     protected virtual void OnUpdate()
     {
-
+        if (_isPaused)
+        {
+            return;
+        }
     }
 
     private void OnDestroy()
@@ -71,7 +71,7 @@ public class CharacterControllerBase : MonoBehaviour
 
     protected virtual void TriggerEnter(Collider2D collision)
     {
-        if (_isPlayer)
+        if (_settings.IsPlayer)
         {
 
         }

@@ -12,10 +12,13 @@ public class InGameManager : MonoBehaviour
 
     [SerializeField] private CharacterAssets _characterAssets = null;
     [SerializeField] private BulletPool _bulletPool = null;
-    [SerializeField] private Transform _playerSpawnTransform = null;
+    [SerializeField] private GameObject _stage = null;
 
     public static InGameManager Instance;
     public PlayerController Player { get; private set; }
+    public CharacterAssets CharacterAssets => _characterAssets;
+    public BulletPool BulletPool => _bulletPool;
+    public Stage Stage { get; private set; }
 
     private void Awake()
     {
@@ -30,6 +33,8 @@ public class InGameManager : MonoBehaviour
     {
         DebugEndGame();
 
+        CreateStage();
+
         SpawnPlayer();
 
 #if !UNITY_EDITOR
@@ -41,13 +46,24 @@ public class InGameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            Time.timeScale = 0.0f;
+        }
+        else if(Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            Time.timeScale = 1.0f;
+        }
+    }
+
+    private void CreateStage()
+    {
+        Instance.Stage = Instantiate(_stage, Vector3.zero, Quaternion.identity).GetComponent<Stage>();
     }
 
     private void SpawnPlayer()
     {
-        Instance.Player = Instantiate(_characterAssets.PlayerParameter.CharacterObject, _playerSpawnTransform.position, Quaternion.identity).GetComponent<PlayerController>();
-        Instance.Player.Initialize(_characterAssets.PlayerParameter, _bulletPool, true);
+        Instance.Player = Instantiate(_characterAssets.PlayerParameters.Find(x => x.CharacterId == 1001).CharacterObject, Instance.Stage.PlayerTransform.position, Quaternion.identity).GetComponent<PlayerController>();
     }
 
     private void DebugEndGame()
