@@ -6,7 +6,6 @@ using UnityEngine.Pool;
 public class PoolManager : MonoBehaviour
 {
     protected ObjectPool<GameObject> _pool;
-    //protected ListPool<GameObject> _pool;
 
     protected GameObject _prefab;
 
@@ -14,12 +13,6 @@ public class PoolManager : MonoBehaviour
     void Start()
     {
         _pool = new ObjectPool<GameObject>(OnCreatePooledObject, OnGetFromPool, OnReleaseToPool, OnDestroyPooledObject);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     GameObject OnCreatePooledObject()
