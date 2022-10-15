@@ -50,7 +50,7 @@ public class EnemyStraightController : CharacterControllerBase
                 Debug.LogError($"íeÇ™å©Ç¬Ç©ÇËÇ‹ÇπÇÒÇ≈ÇµÇΩÅB : {nameof(_parameter.NormalBulletId1)}");
                 return;
             }
-            var bulletController = _bulletPool.GetGameObject<BulletStraightController>(_normalBullet1.gameObject, _normalBullet1.BulletId, this.transform.position, this.transform.rotation);
+            var bulletController = _bulletPool.GetGameObjectComponent<BulletStraightController>(_normalBullet1.gameObject, _normalBullet1.BulletId, this.transform.position, this.transform.rotation);
             _direction = (InGameManager.Instance.Player.transform.position - this.transform.position).normalized;
             bulletController.Shot(_bulletPool, _direction);
             _attackCount = 0.0f;

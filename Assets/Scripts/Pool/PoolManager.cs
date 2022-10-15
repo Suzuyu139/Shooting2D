@@ -34,7 +34,7 @@ public class PoolManager : MonoBehaviour
         Destroy(obj);
     }
 
-    public T GetGameObject<T>(GameObject prefab, int id, Vector3 position, Quaternion rotation)
+    public T GetGameObjectComponent<T>(GameObject prefab, int id, Vector3 position, Quaternion rotation)
     {
         _prefab = prefab;
         var pool = _poolDictionary.Where(x => x.Key == id).Select(x => x.Value).FirstOrDefault();
