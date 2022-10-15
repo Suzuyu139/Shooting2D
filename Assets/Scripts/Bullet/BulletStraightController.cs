@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulletStraightController : BulletControllerBase
 {
-    public void Shot(BulletPool pool, Vector2 direction)
+    public void Shot(PoolManager pool, Vector2 direction)
     {
         if(_bulletPool == null)
         {
@@ -12,6 +12,6 @@ public class BulletStraightController : BulletControllerBase
         }
 
         _rigidbody.AddForce(direction * _speed);
-        _bulletPool.Release(this.gameObject, _AliveTimer);
+        _bulletPool.ReleaseTimer(this.BulletId, this.gameObject, _AliveTimer);
     }
 }

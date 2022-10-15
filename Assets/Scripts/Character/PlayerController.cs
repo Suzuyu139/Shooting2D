@@ -71,7 +71,7 @@ public class PlayerController : CharacterControllerBase
                     Debug.LogError($"íeÇ™å©Ç¬Ç©ÇËÇ‹ÇπÇÒÇ≈ÇµÇΩÅB : {nameof(_parameter.NormalBulletId1)}");
                     return;
                 }
-                var bulletController = _bulletPool.GetBulletComponent<BulletStraightController>(_normalBullet1.gameObject, _bulletTransform.position, this.transform.rotation);
+                var bulletController = _bulletPool.GetGameObject<BulletStraightController>(_normalBullet1.gameObject, _normalBullet1.BulletId, _bulletTransform.position, this.transform.rotation);
                 bulletController.Shot(_bulletPool, _direction);
                 _attackCount += Time.deltaTime;
             }

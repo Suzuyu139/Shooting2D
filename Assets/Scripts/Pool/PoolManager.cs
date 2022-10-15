@@ -2,18 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
+using System.Linq;
+using Cysharp.Threading.Tasks;
+using System;
 
 public class PoolManager : MonoBehaviour
 {
-    protected ObjectPool<GameObject> _pool;
+    protected Dictionary<int, ObjectPool<GameObject>> _poolDictionary = new Dictionary<int, ObjectPool<GameObject>>();
 
     protected GameObject _prefab;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        _pool = new ObjectPool<GameObject>(OnCreatePooledObject, OnGetFromPool, OnReleaseToPool, OnDestroyPooledObject);
-    }
 
     GameObject OnCreatePooledObject()
     {
@@ -37,18 +34,41 @@ public class PoolManager : MonoBehaviour
         Destroy(obj);
     }
 
-    public GameObject GetGameObject(GameObject prefab, Vector3 position, Quaternion rotation)
+    public T GetGameObject<T>(GameObject prefab, int id, Vector3 position, Quaternion rotation)
     {
         _prefab = prefab;
-        GameObject obj = _pool.Get();
+        var pool = _poolDictionary.Where(x => x.Key == id).Select(x => x.Value).FirstOrDefault();
+        if (pool == null)
+        {
+            _poolDictionary.Add(id, new ObjectPool<GameObject>(OnCreatePooledObject, OnGetFromPool, OnReleaseToPool, OnDestroyPooledObject));
+            pool = _poolDictionary.Where(x => x.Key == id).Select(x => x.Value).First();
+        }
+        GameObject obj = pool.Get();
         Transform tf = obj.transform;
         tf.position = position;
         tf.rotation = rotation;
-        return obj;
+        return obj.GetComponent<T>();
     }
 
-    public void ReleaseGameObject(GameObject obj)
+    public void ReleaseGameObject(int id, GameObject obj)
     {
-        _pool.Release(obj);
+        var pool = _poolDictionary.Where(x => x.Key == id).Select(x => x.Value).FirstOrDefault();
+        if(pool == null)
+        {
+            Debug.LogError($"ÉvÅ[ÉãÇéÊìæÇ≈Ç´Ç‹ÇπÇÒÇ≈ÇµÇΩÅB\nid : {id}\nObject : {obj}");
+            return;
+        }
+        pool.Release(obj);
+    }
+
+    public void ReleaseTimer(int id, GameObject obj, float timer)
+    {
+        ReleaseAsync(id, obj, timer).Forget();
+    }
+
+    private async UniTask ReleaseAsync(int id, GameObject obj, float timer)
+    {
+        await UniTask.Delay(TimeSpan.FromSeconds(timer));
+        ReleaseGameObject(id, obj);
     }
 }

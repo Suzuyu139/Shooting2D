@@ -11,13 +11,13 @@ public class InGameManager : MonoBehaviour
     public static readonly float ScreenLimitPosY = 5.0f;
 
     [SerializeField] private CharacterAssets _characterAssets = null;
-    [SerializeField] private BulletPool _bulletPool = null;
+    [SerializeField] private PoolManager _bulletPool = null;
     [SerializeField] private GameObject _stage = null;
 
     public static InGameManager Instance;
     public PlayerController Player { get; private set; }
     public CharacterAssets CharacterAssets => _characterAssets;
-    public BulletPool BulletPool => _bulletPool;
+    public PoolManager BulletPool => _bulletPool;
     public Stage Stage { get; private set; }
 
     private void Awake()

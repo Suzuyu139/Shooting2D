@@ -23,7 +23,7 @@ public class CharacterControllerBase : MonoBehaviour
     [SerializeField] protected int _characterId = 0;
     [SerializeField] protected CharacterSettings _settings;
 
-    protected BulletPool _bulletPool = null;
+    protected PoolManager _bulletPool = null;
     protected bool _isPaused = false;
     protected CharacterAssets.CharacterParameter _parameter = null;
     protected Vector2 _direction = Vector2.zero;

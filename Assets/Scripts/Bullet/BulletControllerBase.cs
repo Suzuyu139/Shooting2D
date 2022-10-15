@@ -9,7 +9,7 @@ public class BulletControllerBase : MonoBehaviour
     [SerializeField] protected float _speed = 1.0f;
     [SerializeField] protected float _AliveTimer = 4.0f;
 
-    protected BulletPool _bulletPool = null;
+    protected PoolManager _bulletPool = null;
 
     public int BulletId => _bulletId;
 }
