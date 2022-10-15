@@ -47,6 +47,7 @@ public class CharacterControllerBase : MonoBehaviour
     protected BulletControllerBase _specialBullet3 = null;
 
     private bool _isInvincible = false;
+    private GameObject _characterExplosionObject = null;
 
     private void Start()
     {
@@ -64,6 +65,7 @@ public class CharacterControllerBase : MonoBehaviour
         {
             _parameter = manager.CharacterAssets.EnemyParameters.Find(x => x.CharacterId == _settings.CharacterId);
         }
+        _characterExplosionObject = manager.CharacterAssets.CharacterExplosionObject;
         _bulletPool = manager.BulletPool;
         _hp = _parameter.Hp;
         _normalBullet1 = _parameter.BulletControllers.Find(x => x.BulletId == _parameter.NormalBulletId1);
@@ -133,6 +135,7 @@ public class CharacterControllerBase : MonoBehaviour
             }
             else
             {
+                Instantiate(_characterExplosionObject, this.transform.position, Quaternion.identity);
                 Destroy(gameObject);
             }
         }

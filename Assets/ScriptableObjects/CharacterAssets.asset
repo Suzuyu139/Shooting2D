@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 872ea461a9054974199dbb7f8a9d0881, type: 3}
   m_Name: CharacterAssets
   m_EditorClassIdentifier: 
+  _characterExplosionObject: {fileID: 8366096009178800558, guid: 5f7d39bf8d08beb48ac324094c26f49e, type: 3}
   _playerParameters:
   - _characterId: 1001
     _name: "\u30D7\u30EC\u30A4\u30E4\u30FC"
