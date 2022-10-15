@@ -7,6 +7,7 @@ public class PlayerController : CharacterControllerBase
     private static readonly float _posLimitX = 8.45f;
     private static readonly float _posLimitY = 4.45f;
 
+    [Header("キャラクター設定（プレイヤー）")]
     [SerializeField] private Transform _bulletTransform = null;
 
     protected override void OnInitialize()

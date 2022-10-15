@@ -11,6 +11,7 @@ public class CharacterAssets : ScriptableObject
         [SerializeField] private int _characterId = 0;
         [SerializeField] private string _name = "";
         [SerializeField] private GameObject _characterObject = null;
+        [SerializeField] private int _hp = 1;
         [SerializeField] private int _normalBulletId1 = 0;
         [SerializeField] private int _normalBulletId2 = 0;
         [SerializeField] private int _normalBulletId3 = 0;
@@ -22,6 +23,7 @@ public class CharacterAssets : ScriptableObject
         public int CharacterId => _characterId;
         public string Name => _name;
         public GameObject CharacterObject => _characterObject;
+        public int Hp => _hp;
         public int NormalBulletId1 => _normalBulletId1;
         public int NormalBulletId2 => _normalBulletId2;
         public int NormalBulletId3 => _normalBulletId3;

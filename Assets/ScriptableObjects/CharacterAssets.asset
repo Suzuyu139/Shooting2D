@@ -16,6 +16,7 @@ MonoBehaviour:
   - _characterId: 1001
     _name: "\u30D7\u30EC\u30A4\u30E4\u30FC"
     _characterObject: {fileID: 8609292690456077033, guid: ec2c56336aa9af14eb6e15944b826503, type: 3}
+    _hp: 3
     _normalBulletId1: 10001
     _normalBulletId2: 0
     _normalBulletId3: 0
@@ -28,6 +29,7 @@ MonoBehaviour:
   - _characterId: 2001
     _name: "\u65751"
     _characterObject: {fileID: 670669232791060743, guid: 1dcd073863d7df34b94211137c6e4339, type: 3}
+    _hp: 1
     _normalBulletId1: 20001
     _normalBulletId2: 0
     _normalBulletId3: 0

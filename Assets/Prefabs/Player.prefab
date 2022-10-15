@@ -127,6 +127,7 @@ GameObject:
   - component: {fileID: 129690975818067828}
   - component: {fileID: 91147107122331901}
   - component: {fileID: 8609292690456077032}
+  - component: {fileID: 5350897395418751869}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -203,13 +204,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 91147107122331901}
-  _characterId: 1001
+  _characterView: {fileID: 5350897395418751869}
+  _hitTimeCount: 5
+  _hitTimeInterval: 0.1
+  _hitInvincibleTime: 1
   _settings:
+    _characterId: 1001
     _isPlayer: 1
     _moveSpeed: 4
     _attackInterval: 0.5
-    _lifeTimer: 2
+    _moveTime: 2
   _bulletTransform: {fileID: 7091339388911600420}
+--- !u!114 &5350897395418751869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8609292690456077033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 918ea3bad26080a478513c809703bcfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _renderers:
+  - {fileID: 8609292690508914041}
+  - {fileID: 8609292690611317780}
+  - {fileID: 2411309479571085796}
 --- !u!1 &8609292690508913927
 GameObject:
   m_ObjectHideFlags: 0

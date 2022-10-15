@@ -31,6 +31,10 @@ public class EnemyStraightController : CharacterControllerBase
 
     protected override void OnUpdate()
     {
+        if(InGameManager.Instance.Player == null)
+        {
+            return;
+        }
         base.OnUpdate();
         Attack();
     }
