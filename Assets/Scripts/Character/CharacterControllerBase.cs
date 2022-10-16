@@ -51,6 +51,9 @@ public class CharacterControllerBase : MonoBehaviour
     protected BulletControllerBase _specialBullet3 = null;
 
     private bool _isInvincible = false;
+    private bool _isDeath = false;
+
+    public bool IsDeath => _isDeath;
 
     private void Start()
     {
@@ -167,6 +170,7 @@ public class CharacterControllerBase : MonoBehaviour
                 {
                     Instantiate(_characterExplosionObject, this.transform.position, Quaternion.identity);
                 }
+                _isDeath = true;
                 Destroy(gameObject);
             }
         }
@@ -176,6 +180,7 @@ public class CharacterControllerBase : MonoBehaviour
     {
         _isPaused = true;
         _isInvincible = true;
+        _isDeath = true;
         InGameManager.Instance.TimeManager.SetTimeScale(0.0f, _deathHitStopTime);
         await UniTask.WaitWhile(() => InGameManager.Instance.TimeManager.IsStop);
 
