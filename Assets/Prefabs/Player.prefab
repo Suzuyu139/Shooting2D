@@ -209,6 +209,8 @@ MonoBehaviour:
   _hitTimeCount: 5
   _hitTimeInterval: 0.1
   _hitInvincibleTime: 1
+  _deathHitStopTime: 1
+  _deathSlowTimeScale: 0.2
   _settings:
     _characterId: 1001
     _isPlayer: 1

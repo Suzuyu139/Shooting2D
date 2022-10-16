@@ -32,6 +32,8 @@ public class CharacterControllerBase : MonoBehaviour
     [SerializeField] private int _hitTimeCount = 5;
     [SerializeField] private float _hitTimeInterval = 0.1f;
     [SerializeField] private float _hitInvincibleTime = 1.0f;
+    [SerializeField] private float _deathHitStopTime = 1.0f;
+    [SerializeField] private float _deathSlowTimeScale = 0.2f;
     [SerializeField] protected CharacterSettings _settings;
 
     protected PoolManager _bulletPool = null;
@@ -134,11 +136,7 @@ public class CharacterControllerBase : MonoBehaviour
             }
             else
             {
-                if (_characterExplosionObject)
-                {
-                    Instantiate(_characterExplosionObject, this.transform.position, Quaternion.identity);
-                }
-                Destroy(gameObject);
+                DeathHitStop().Forget();
             }
         }
         else
@@ -162,5 +160,23 @@ public class CharacterControllerBase : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+    }
+
+    private async UniTask DeathHitStop()
+    {
+        _isPaused = true;
+        _isInvincible = true;
+        InGameManager.Instance.TimeManager.SetTimeScale(0.0f, _deathHitStopTime);
+        await UniTask.WaitWhile(() => InGameManager.Instance.TimeManager.IsStop);
+
+        if (_characterExplosionObject)
+        {
+            _characterView.SetSpriteRenderersAlpha(0.0f);
+            var particle = Instantiate(_characterExplosionObject, this.transform.position, Quaternion.identity).GetComponent<ParticleSystem>();
+            InGameManager.Instance.TimeManager.SetTimeScale(_deathSlowTimeScale, particle.main.duration / _deathSlowTimeScale);
+        }
+
+        await UniTask.WaitWhile(() => InGameManager.Instance.TimeManager.IsStop);
+        Destroy(gameObject);
     }
 }
