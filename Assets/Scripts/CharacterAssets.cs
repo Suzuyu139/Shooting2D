@@ -33,11 +33,9 @@ public class CharacterAssets : ScriptableObject
         public List<BulletControllerBase> BulletControllers => _bulletControllers;
     }
 
-    [SerializeField] private GameObject _characterExplosionObject = null;
     [SerializeField] private List<CharacterParameter> _playerParameters;
     [SerializeField] private List<CharacterParameter> _enemyParameters;
 
-    public GameObject CharacterExplosionObject => _characterExplosionObject;
     public List<CharacterParameter> PlayerParameters => _playerParameters;
     public List<CharacterParameter> EnemyParameters => _enemyParameters;
 }

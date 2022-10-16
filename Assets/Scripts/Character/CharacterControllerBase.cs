@@ -28,6 +28,7 @@ public class CharacterControllerBase : MonoBehaviour
     [Header("キャラクター設定（ベース）")]
     [SerializeField] protected Rigidbody2D _rigidbody = null;
     [SerializeField] private CharacterView _characterView = null;
+    [SerializeField] private GameObject _characterExplosionObject;
     [SerializeField] private int _hitTimeCount = 5;
     [SerializeField] private float _hitTimeInterval = 0.1f;
     [SerializeField] private float _hitInvincibleTime = 1.0f;
@@ -47,7 +48,6 @@ public class CharacterControllerBase : MonoBehaviour
     protected BulletControllerBase _specialBullet3 = null;
 
     private bool _isInvincible = false;
-    private GameObject _characterExplosionObject = null;
 
     private void Start()
     {
@@ -65,7 +65,6 @@ public class CharacterControllerBase : MonoBehaviour
         {
             _parameter = manager.CharacterAssets.EnemyParameters.Find(x => x.CharacterId == _settings.CharacterId);
         }
-        _characterExplosionObject = manager.CharacterAssets.CharacterExplosionObject;
         _bulletPool = manager.BulletPool;
         _hp = _parameter.Hp;
         _normalBullet1 = _parameter.BulletControllers.Find(x => x.BulletId == _parameter.NormalBulletId1);
@@ -135,7 +134,10 @@ public class CharacterControllerBase : MonoBehaviour
             }
             else
             {
-                Instantiate(_characterExplosionObject, this.transform.position, Quaternion.identity);
+                if (_characterExplosionObject)
+                {
+                    Instantiate(_characterExplosionObject, this.transform.position, Quaternion.identity);
+                }
                 Destroy(gameObject);
             }
         }
@@ -153,6 +155,10 @@ public class CharacterControllerBase : MonoBehaviour
             }
             else
             {
+                if(_characterExplosionObject)
+                {
+                    Instantiate(_characterExplosionObject, this.transform.position, Quaternion.identity);
+                }
                 Destroy(gameObject);
             }
         }
