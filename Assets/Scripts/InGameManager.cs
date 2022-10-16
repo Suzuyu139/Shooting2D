@@ -15,8 +15,11 @@ public class InGameManager : MonoBehaviour
     [SerializeField] private PoolManager _bulletPool = null;
     [SerializeField] private GameObject _stage = null;
 
+    private List<CharacterControllerBase> _enemies = new List<CharacterControllerBase>();
+
     public static InGameManager Instance;
     public PlayerController Player { get; private set; }
+    public IReadOnlyList<CharacterControllerBase> Enemies => _enemies;
     public CharacterAssets CharacterAssets => _characterAssets;
     public TimeManager TimeManager => _timeManager;
     public PoolManager BulletPool => _bulletPool;
@@ -35,14 +38,14 @@ public class InGameManager : MonoBehaviour
     {
         DebugEndGame();
 
-        CreateStage();
-
-        SpawnPlayer();
-
 #if !UNITY_EDITOR
         // カーソルが画面外に行かないようにする
         Cursor.lockState = CursorLockMode.Confined;
 #endif
+
+        CreateStage();
+
+        SpawnPlayer();
     }
 
     // Update is called once per frame
@@ -56,6 +59,11 @@ public class InGameManager : MonoBehaviour
         {
             Time.timeScale = 1.0f;
         }
+
+        if(Instance.Stage.StageEnd())
+        {
+            Debug.Log("StageEnd");
+        }
     }
 
     private void CreateStage()
@@ -66,6 +74,16 @@ public class InGameManager : MonoBehaviour
     private void SpawnPlayer()
     {
         Instance.Player = Instantiate(_characterAssets.PlayerParameters.Find(x => x.CharacterId == 1001).CharacterObject, Instance.Stage.PlayerTransform.position, Quaternion.identity).GetComponent<PlayerController>();
+    }
+
+    public void AddEnemies(CharacterControllerBase enemy)
+    {
+        Instance._enemies.Add(enemy);
+    }
+
+    public void RemoveEnemies(CharacterControllerBase enemy)
+    {
+        Instance._enemies.Remove(enemy);
     }
 
     private void DebugEndGame()

@@ -28,6 +28,7 @@ public class CharacterControllerBase : MonoBehaviour
     [Header("キャラクター設定（ベース）")]
     [SerializeField] protected Rigidbody2D _rigidbody = null;
     [SerializeField] private CharacterView _characterView = null;
+    [SerializeField] private GameObject _characterFailureSmokeObject;
     [SerializeField] private GameObject _characterExplosionObject;
     [SerializeField] private int _hitTimeCount = 5;
     [SerializeField] private float _hitTimeInterval = 0.1f;
@@ -89,6 +90,10 @@ public class CharacterControllerBase : MonoBehaviour
 
     private void OnDestroy()
     {
+        if(!_settings.IsPlayer)
+        {
+            InGameManager.Instance.RemoveEnemies(this);
+        }
         this.transform.DOKill();
     }
 
@@ -115,8 +120,8 @@ public class CharacterControllerBase : MonoBehaviour
 
         _characterView.SetSpriteRenderersAlpha(_invincibleAlpha);
         await UniTask.Delay(TimeSpan.FromSeconds(_hitInvincibleTime));
-        _characterView.SetSpriteRenderersAlpha(1.0f);
 
+        _characterView.SetSpriteRenderersAlpha(1.0f);
         _isInvincible = false;
     }
 
@@ -124,7 +129,7 @@ public class CharacterControllerBase : MonoBehaviour
     {
         if (_settings.IsPlayer)
         {
-            if(collision.tag == TagName.Player || collision.tag == TagName.PlayerBullet)
+            if(collision.CompareTag(TagName.Player) || collision.CompareTag(TagName.PlayerBullet))
             {
                 return;
             }
@@ -133,6 +138,11 @@ public class CharacterControllerBase : MonoBehaviour
             if(_hp > 0)
             {
                 HitOperationProcess().Forget();
+                if(_hp == 1)
+                {
+                    var obj = Instantiate(_characterFailureSmokeObject, this.transform.position, Quaternion.identity);
+                    obj.transform.parent = this.transform;
+                }
             }
             else
             {
@@ -141,7 +151,7 @@ public class CharacterControllerBase : MonoBehaviour
         }
         else
         {
-            if (collision.tag == TagName.Enemy || collision.tag == TagName.EnemyBullet)
+            if (collision.CompareTag(TagName.Enemy) || collision.CompareTag(TagName.EnemyBullet))
             {
                 return;
             }

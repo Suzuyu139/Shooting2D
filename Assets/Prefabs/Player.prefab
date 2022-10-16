@@ -205,6 +205,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 91147107122331901}
   _characterView: {fileID: 5350897395418751869}
+  _characterFailureSmokeObject: {fileID: 4229172639019093288, guid: 6e23b158160b3f3428a8a6c3080ba629, type: 3}
   _characterExplosionObject: {fileID: 8366096009178800558, guid: 5f7d39bf8d08beb48ac324094c26f49e, type: 3}
   _hitTimeCount: 5
   _hitTimeInterval: 0.1

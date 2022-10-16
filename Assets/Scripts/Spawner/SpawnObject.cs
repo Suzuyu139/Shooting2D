@@ -43,7 +43,8 @@ public class SpawnObject : MonoBehaviour
     {
         for (int i = 0; i < _spawnNum; ++i)
         {
-            Instantiate(_spawnEnemy, position, Quaternion.identity);
+            var enemy = Instantiate(_spawnEnemy, position, Quaternion.identity).GetComponent<CharacterControllerBase>();
+            InGameManager.Instance.AddEnemies(enemy);
             await UniTask.Delay(TimeSpan.FromSeconds(_spawnWaitTime));
         }
     }

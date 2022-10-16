@@ -5,7 +5,7 @@ using UnityEditor;
 using Cysharp.Threading.Tasks;
 using System;
 
-public class EnemyWaveSpawner : MonoBehaviour
+public class EnemyWaveSpawner : SpawnerBase
 {
     [SerializeField] private GameObject _spawnObject = null;
     [SerializeField] private int _waveNum = 0;
@@ -35,6 +35,11 @@ public class EnemyWaveSpawner : MonoBehaviour
     void Start()
     {
         _spawnObjects = this.GetComponentsInChildren<SpawnObject>();
+        if(_spawnObjects.Length <= 0)
+        {
+            Debug.LogError("スポーンオブジェクトが見つかりませんでした。");
+            return;
+        }
 
         WaveSpawn().Forget();
     }
@@ -54,6 +59,8 @@ public class EnemyWaveSpawner : MonoBehaviour
 
             obj.Spawn();
         }
+
+        _isSpawnerEnd = true;
     }
 }
 
