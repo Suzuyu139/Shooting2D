@@ -60,9 +60,14 @@ public class InGameManager : MonoBehaviour
             Time.timeScale = 1.0f;
         }
 
-        if(Instance.Stage.StageEnd())
+        if(Instance.Stage.StageEnd() && !Instance.Player.IsDeath)
         {
             Debug.Log("StageEnd");
+        }
+
+        if(Instance.Player == null)
+        {
+            Debug.Log("GameOver");
         }
     }
 
