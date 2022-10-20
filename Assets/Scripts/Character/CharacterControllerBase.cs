@@ -63,13 +63,14 @@ public class CharacterControllerBase : MonoBehaviour
     protected virtual void OnInitialize()
     {
         var manager = InGameManager.Instance;
+        var character = MasterManager.Instance.Character;
         if(_settings.IsPlayer)
         {
-            _parameter = manager.CharacterAssets.PlayerParameters.Find(x => x.CharacterId == _settings.CharacterId);
+            _parameter = character.PlayerParameters.Find(x => x.CharacterId == _settings.CharacterId);
         }
         else
         {
-            _parameter = manager.CharacterAssets.EnemyParameters.Find(x => x.CharacterId == _settings.CharacterId);
+            _parameter = character.EnemyParameters.Find(x => x.CharacterId == _settings.CharacterId);
         }
         _bulletPool = manager.BulletPool;
         _hp = _parameter.Hp;

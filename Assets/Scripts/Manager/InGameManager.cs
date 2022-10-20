@@ -10,7 +10,6 @@ public class InGameManager : MonoBehaviour
     public static readonly float ScreenLimitPosX = 9.0f;
     public static readonly float ScreenLimitPosY = 5.0f;
 
-    [SerializeField] private CharacterAssets _characterAssets = null;
     [SerializeField] private TimeManager _timeManager = null;
     [SerializeField] private PoolManager _bulletPool = null;
     [SerializeField] private GameObject _stage = null;
@@ -20,7 +19,6 @@ public class InGameManager : MonoBehaviour
     public static InGameManager Instance;
     public PlayerController Player { get; private set; }
     public IReadOnlyList<CharacterControllerBase> Enemies => _enemies;
-    public CharacterAssets CharacterAssets => _characterAssets;
     public TimeManager TimeManager => _timeManager;
     public PoolManager BulletPool => _bulletPool;
     public Stage Stage { get; private set; }
@@ -78,7 +76,8 @@ public class InGameManager : MonoBehaviour
 
     private void SpawnPlayer()
     {
-        Instance.Player = Instantiate(_characterAssets.PlayerParameters.Find(x => x.CharacterId == 1001).CharacterObject, Instance.Stage.PlayerTransform.position, Quaternion.identity).GetComponent<PlayerController>();
+        var character = MasterManager.Instance.Character;
+        Instance.Player = Instantiate(character.PlayerParameters.Find(x => x.CharacterId == 1001).CharacterObject, Instance.Stage.PlayerTransform.position, Quaternion.identity).GetComponent<PlayerController>();
     }
 
     public void AddEnemies(CharacterControllerBase enemy)

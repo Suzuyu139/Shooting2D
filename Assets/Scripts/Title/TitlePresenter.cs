@@ -5,14 +5,23 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UniRx;
 using System;
+using Cysharp.Threading.Tasks;
 
 public class TitlePresenter : MonoBehaviour
 {
+    [SerializeField] private GameInitializer _initializer = null;
     [SerializeField] private TitleView _view = null;
 
     // Start is called before the first frame update
     void Start()
     {
+        Initialize().Forget();
+    }
+
+    private async UniTask Initialize()
+    {
+        await UniTask.WaitUntil(() => _initializer.IsInitialized);
+
         BindViewEvents();
     }
 
@@ -20,12 +29,6 @@ public class TitlePresenter : MonoBehaviour
     {
         _view.OnObservableStartButton
             .TakeUntilDestroy(this)
-            .Subscribe(_ => SceneManager.LoadScene("Game"));
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+            .Subscribe(_ => SceneLoadManager.Instance.ChangeScene(SceneConst.SceneType.Game));
     }
 }
