@@ -60,3 +60,6 @@ TagManager:
   - name: Dialog
     uniqueID: 754346025
     locked: 0
+  - name: Fade
+    uniqueID: 1241840923
+    locked: 0

@@ -358,7 +358,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 432bed1f9ee84d745bd5b7abb2652d52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _characterAssets: {fileID: 11400000, guid: 1abeecb38a4a3cc4eb87745eb1c0e084, type: 2}
   _timeManager: {fileID: 822298548}
   _bulletPool: {fileID: 413486214}
   _stage: {fileID: 5222008841529043697, guid: d66cfee179a9cfb4797e82df66c5982b, type: 3}
@@ -498,7 +497,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 000000003f4639b46536380c07d5696513ead3be
+  m_ApplyToSortingLayers: 000000003f4639b46536380c07d5696513ead3be2968f62c1bfd044a
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
