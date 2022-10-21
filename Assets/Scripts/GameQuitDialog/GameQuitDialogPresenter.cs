@@ -21,7 +21,11 @@ public class GameQuitDialogPresenter : MonoBehaviour
             .TakeUntilDestroy(this)
             .Subscribe(_ =>
             {
-                Debug.Log("Yes");
+                if(_view.IsAnimation)
+                {
+                    return;
+                }
+
 #if UNITY_EDITOR
                 UnityEditor.EditorApplication.isPlaying = false;    //ゲームプレイ終了
 #else
@@ -33,8 +37,14 @@ public class GameQuitDialogPresenter : MonoBehaviour
             .TakeUntilDestroy(this)
             .Subscribe(_ =>
             {
-                Debug.Log("No");
                 _view.Close();
+            });
+
+        _view.OnClickBackScreenButton
+            .TakeUntilDestroy(this)
+            .Subscribe(_ =>
+            {
+                _view.Close(); 
             });
     }
 

@@ -17,27 +17,6 @@ public class TitlePresenter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Initialize().Forget();
-    }
-
-    private async UniTask Initialize()
-    {
-        while (true)
-        {
-            var objs = GameObject.FindGameObjectsWithTag(TagName.Dialog).ToList();
-            if(_gameQuitDialogPresenter == null)
-            {
-                _gameQuitDialogPresenter = objs.Find(x => x.GetComponent<GameQuitDialogPresenter>())?.GetComponent<GameQuitDialogPresenter>();
-            }
-
-            if(_gameQuitDialogPresenter != null)
-            {
-                break;
-            }
-
-            await UniTask.Yield();
-        }
-
         BindViewEvents();
     }
 
@@ -49,6 +28,18 @@ public class TitlePresenter : MonoBehaviour
 
         _view.OnClickGameQuitButton
             .TakeUntilDestroy(this)
-            .Subscribe(_ => _gameQuitDialogPresenter.Open());
+            .Subscribe(_ =>
+            {
+                if (_gameQuitDialogPresenter == null)
+                {
+                    var objs = GameObject.FindGameObjectsWithTag(TagName.Dialog).ToList();
+                    _gameQuitDialogPresenter = objs.Find(x => x.GetComponent<GameQuitDialogPresenter>())?.GetComponent<GameQuitDialogPresenter>();
+                }
+
+                if (_gameQuitDialogPresenter != null)
+                {
+                    _gameQuitDialogPresenter.Open();
+                }
+            });
     }
 }

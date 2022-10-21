@@ -7,6 +7,7 @@ using System;
 
 public class GameQuitDialogView : DialogViewBase
 {
+    [Header("ゲーム終了ダイアログ設定")]
     [SerializeField] private Button _yesButton = null;
     [SerializeField] private Button _noButton = null;
 
@@ -16,6 +17,5 @@ public class GameQuitDialogView : DialogViewBase
     public override void Initialize()
     {
         base.Initialize();
-        Close();
     }
 }
