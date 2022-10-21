@@ -13,6 +13,12 @@ MonoBehaviour:
   m_Name: TextAssets
   m_EditorClassIdentifier: 
   _texts:
-  - _key: title_text
-    _japanese: "\u30BF\u30A4\u30C8\u30EB"
-    _english: "\u30BF\u30A4\u30C8\u30EB"
+  - _key: game_quit_text
+    _japanese: "\u30B2\u30FC\u30E0\u3092\u7D42\u4E86\u3057\u307E\u3059\u304B\uFF1F"
+    _english: Do you want to exit the game?
+  - _key: yes_text
+    _japanese: "\u306F\u3044"
+    _english: Yes
+  - _key: no_text
+    _japanese: "\u3044\u3044\u3048"
+    _english: No

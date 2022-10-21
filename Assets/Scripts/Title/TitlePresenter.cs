@@ -6,11 +6,13 @@ using UnityEngine.SceneManagement;
 using UniRx;
 using System;
 using Cysharp.Threading.Tasks;
+using System.Linq;
 
 public class TitlePresenter : MonoBehaviour
 {
-    [SerializeField] private GameInitializer _initializer = null;
     [SerializeField] private TitleView _view = null;
+
+    private GameQuitDialogPresenter _gameQuitDialogPresenter = null;
 
     // Start is called before the first frame update
     void Start()
@@ -20,15 +22,33 @@ public class TitlePresenter : MonoBehaviour
 
     private async UniTask Initialize()
     {
-        await UniTask.WaitUntil(() => _initializer.IsInitialized);
+        while (true)
+        {
+            var objs = GameObject.FindGameObjectsWithTag(TagName.Dialog).ToList();
+            if(_gameQuitDialogPresenter == null)
+            {
+                _gameQuitDialogPresenter = objs.Find(x => x.GetComponent<GameQuitDialogPresenter>())?.GetComponent<GameQuitDialogPresenter>();
+            }
+
+            if(_gameQuitDialogPresenter != null)
+            {
+                break;
+            }
+
+            await UniTask.Yield();
+        }
 
         BindViewEvents();
     }
 
     private void BindViewEvents()
     {
-        _view.OnObservableStartButton
+        _view.OnClickStartButton
             .TakeUntilDestroy(this)
             .Subscribe(_ => SceneLoadManager.Instance.ChangeScene(SceneConst.SceneType.Game));
+
+        _view.OnClickGameQuitButton
+            .TakeUntilDestroy(this)
+            .Subscribe(_ => _gameQuitDialogPresenter.Open());
     }
 }

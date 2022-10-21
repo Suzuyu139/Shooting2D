@@ -7,6 +7,7 @@ TagManager:
   - PlayerBullet
   - Enemy
   - EnemyBullet
+  - Dialog
   layers:
   - Default
   - TransparentFX
@@ -55,4 +56,7 @@ TagManager:
     locked: 0
   - name: EnemyBullet
     uniqueID: 3201559059
+    locked: 0
+  - name: Dialog
+    uniqueID: 754346025
     locked: 0
