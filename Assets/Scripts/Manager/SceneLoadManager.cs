@@ -21,9 +21,6 @@ public class SceneLoadManager : MonoBehaviour
 
     public bool IsFade { get; private set; } = false;
 
-    private bool _isAnimation = false;
-
-
     private void Awake()
     {
         if(Instance == null)
@@ -34,7 +31,6 @@ public class SceneLoadManager : MonoBehaviour
         _canvas.worldCamera = Camera.main;
         _canvas.sortingLayerName = _fadeLayerName;
         _canvasGroup.alpha = 0.0f;
-        _canvas.gameObject.SetActive(false);
     }
 
     public void ChangeScene(SceneType sceneType, bool isFade = true)
@@ -44,8 +40,6 @@ public class SceneLoadManager : MonoBehaviour
 
     private async UniTask ChangeSceneAsync(SceneType sceneType, bool isFade)
     {
-        _canvas.gameObject.SetActive(true);
-
         if(_canvas.worldCamera == null)
         {
             _canvas.worldCamera = Camera.main;
@@ -65,35 +59,25 @@ public class SceneLoadManager : MonoBehaviour
         {
             await FadeOut();
         }
-
-        _canvas.gameObject.SetActive(false);
     }
 
     private async UniTask FadeIn()
     {
         IsFade = true;
-        _isAnimation = true;
-
         await UniTask.WaitUntil(() =>
         {
             _canvasGroup.alpha += _fadeSpeed * Time.deltaTime;
             return _canvasGroup.alpha >= 1.0f;
         });
-
-        _isAnimation = false;
     }
 
     private async UniTask FadeOut()
     {
-        _isAnimation = true;
-
         await UniTask.WaitUntil(() =>
         {
             _canvasGroup.alpha -= _fadeSpeed * Time.deltaTime;
             return _canvasGroup.alpha <= 0.0f;
         });
-
-        _isAnimation = false;
         IsFade = false;
     }
 }

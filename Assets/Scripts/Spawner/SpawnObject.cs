@@ -14,6 +14,8 @@ public class SpawnObject : MonoBehaviour
 
     public float SpawnTime => _spawnTime;
 
+    public bool IsSpawn { get; private set; } = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,11 +43,13 @@ public class SpawnObject : MonoBehaviour
 
     private async UniTask EnemySpawn(Vector3 position)
     {
+        IsSpawn = true;
         for (int i = 0; i < _spawnNum; ++i)
         {
             var enemy = Instantiate(_spawnEnemy, position, Quaternion.identity).GetComponent<CharacterControllerBase>();
             InGameManager.Instance.AddEnemies(enemy);
             await UniTask.Delay(TimeSpan.FromSeconds(_spawnWaitTime));
         }
+        IsSpawn = false;
     }
 }

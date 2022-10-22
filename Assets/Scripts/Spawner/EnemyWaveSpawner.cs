@@ -41,7 +41,7 @@ public class EnemyWaveSpawner : SpawnerBase
             return;
         }
 
-        WaveSpawn().Forget();
+        EnemySpawner().Forget();
     }
 
     // Update is called once per frame
@@ -50,14 +50,16 @@ public class EnemyWaveSpawner : SpawnerBase
         
     }
 
-    private async UniTask WaveSpawn()
+    protected override async UniTask EnemySpawner()
     {
-        for(int i = 0; i < _spawnObjects.Length; ++i)
+        for (int i = 0; i < _spawnObjects.Length; ++i)
         {
-            var obj = _spawnObjects[i];
-            await UniTask.Delay(TimeSpan.FromSeconds(obj.SpawnTime));
+            await base.EnemySpawner();
 
+            var obj = _spawnObjects[i];
             obj.Spawn();
+            await UniTask.Delay(TimeSpan.FromSeconds(obj.SpawnTime));
+            await UniTask.WaitUntil(() => !obj.IsSpawn);
         }
 
         _isSpawnerEnd = true;
