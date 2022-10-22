@@ -17,11 +17,14 @@ public class InGameManager : MonoBehaviour
     private List<CharacterControllerBase> _enemies = new List<CharacterControllerBase>();
 
     public static InGameManager Instance;
+
     public PlayerController Player { get; private set; }
     public IReadOnlyList<CharacterControllerBase> Enemies => _enemies;
     public TimeManager TimeManager => _timeManager;
     public PoolManager BulletPool => _bulletPool;
     public Stage Stage { get; private set; }
+    public bool IsGameOver { get; private set; } = false;
+    public bool IsClear { get; private set; } = false;
 
     private void Awake()
     {
@@ -58,36 +61,38 @@ public class InGameManager : MonoBehaviour
             Time.timeScale = 1.0f;
         }
 
-        if(Instance.Stage.StageEnd() && !Instance.Player.IsDeath)
+        if(Stage.StageEnd() && !Player.IsDeath && !IsClear)
         {
             Debug.Log("StageEnd");
+            IsClear = true;
         }
 
-        if(Instance.Player == null)
+        if(Player == null && !IsGameOver)
         {
             Debug.Log("GameOver");
+            IsGameOver = true;
         }
     }
 
     private void CreateStage()
     {
-        Instance.Stage = Instantiate(_stage, Vector3.zero, Quaternion.identity).GetComponent<Stage>();
+        Stage = Instantiate(_stage, Vector3.zero, Quaternion.identity).GetComponent<Stage>();
     }
 
     private void SpawnPlayer()
     {
         var character = MasterManager.Instance.Character;
-        Instance.Player = Instantiate(character.PlayerParameters.Find(x => x.CharacterId == 1001).CharacterObject, Instance.Stage.PlayerTransform.position, Quaternion.identity).GetComponent<PlayerController>();
+        Player = Instantiate(character.PlayerParameters.Find(x => x.CharacterId == 1001).CharacterObject, Stage.PlayerTransform.position, Quaternion.identity).GetComponent<PlayerController>();
     }
 
     public void AddEnemies(CharacterControllerBase enemy)
     {
-        Instance._enemies.Add(enemy);
+        _enemies.Add(enemy);
     }
 
     public void RemoveEnemies(CharacterControllerBase enemy)
     {
-        Instance._enemies.Remove(enemy);
+        _enemies.Remove(enemy);
     }
 
     private void DebugEndGame()

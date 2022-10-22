@@ -57,8 +57,9 @@ public class EnemyWaveSpawner : SpawnerBase
             await base.EnemySpawner();
 
             var obj = _spawnObjects[i];
-            obj.Spawn();
             await UniTask.Delay(TimeSpan.FromSeconds(obj.SpawnTime));
+            obj.Spawn();
+
             await UniTask.WaitUntil(() => !obj.IsSpawn);
         }
 
