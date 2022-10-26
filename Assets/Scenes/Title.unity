@@ -775,6 +775,8 @@ MonoBehaviour:
   _initObjects:
   - {fileID: 7876641648759490564, guid: 730606f7ce35c5a4ba72ea2c80169eb1, type: 3}
   - {fileID: 6236459062164264869, guid: 2d38185223651b5488075aac408080a2, type: 3}
+  _debugInitObjects:
+  - {fileID: 8848220739431072418, guid: 1245752235b6a0c468f6a6a456888802, type: 3}
 --- !u!4 &843649099
 Transform:
   m_ObjectHideFlags: 0

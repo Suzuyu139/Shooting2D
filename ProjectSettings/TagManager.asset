@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - EnemyBullet
   - Dialog
+  - Debug
   layers:
   - Default
   - TransparentFX
@@ -62,4 +63,7 @@ TagManager:
     locked: 0
   - name: Fade
     uniqueID: 1241840923
+    locked: 0
+  - name: Debug
+    uniqueID: 1871365881
     locked: 0

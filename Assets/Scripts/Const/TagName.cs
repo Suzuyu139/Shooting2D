@@ -9,4 +9,7 @@ public static class TagName
     public static readonly string PlayerBullet = "PlayerBullet";
     public static readonly string EnemyBullet = "EnemyBullet";
     public static readonly string Dialog = "Dialog";
+#if DEBUG
+    public static readonly string Debug = "Debug";
+#endif
 }
