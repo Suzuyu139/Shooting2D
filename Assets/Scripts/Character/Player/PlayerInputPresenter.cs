@@ -1,18 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Windows;
 
-public class PlayerInputPresenter : MonoBehaviour
+public class PlayerInputPresenter : PresenterBase
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] PlayerModel _model;
+
+    PlayerModel.InputData _input = new PlayerModel.InputData();
+
+    private void Start()
     {
-        
+        IsInitialized = true;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnMove(InputAction.CallbackContext context)
     {
-        
+        if (context.phase == InputActionPhase.Performed)
+        {
+            _input.SetMove(context.ReadValue<Vector2>());
+        }
+        else
+        {
+            _input.SetMove(Vector2.zero);
+        }
+
+        _model.SetInput(_input);
     }
 }

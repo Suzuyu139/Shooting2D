@@ -1,18 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
+using UniRx.Triggers;
 
-public class PlayerMovePresenter : MonoBehaviour
+public class PlayerMovePresenter : PresenterBase
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] PlayerModel _model;
+    [SerializeField] PlayerMoveView _moveView;
+
+    private void Start()
     {
-        
+        this.UpdateAsObservable().Subscribe(OnUpdate).AddTo(gameObject);
+
+        IsInitialized = true;
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnUpdate(Unit unit)
     {
-        
+        _model.SetMove(_model.Input.Move);
+        _moveView.Move(_model.Move * _model.MoveSpeed * Time.deltaTime);
     }
 }

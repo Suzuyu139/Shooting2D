@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class PlayerMoveView : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] CharacterController _characterController;
 
-    // Update is called once per frame
-    void Update()
+    public void Move(Vector2 move)
     {
-        
+        _characterController.Move(move);
     }
 }
