@@ -8,8 +8,10 @@ public class PlayerModel : MonoBehaviour
     public struct InputData
     {
         public Vector2 Move { get; private set; }
+        public Vector2 CursorPos { get; private set; }
 
         public void SetMove(Vector2 move) => Move = move;
+        public void SeCursorPos(Vector2 cursorPos) => CursorPos = cursorPos;
     }
 
     public InputData Input { get; private set; } = new InputData();

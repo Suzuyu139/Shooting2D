@@ -28,4 +28,10 @@ public class PlayerInputPresenter : PresenterBase
 
         _model.SetInput(_input);
     }
+
+    public void OnCursorPos(InputAction.CallbackContext context)
+    {
+        _input.SeCursorPos(context.ReadValue<Vector2>());
+        _model.SetInput(_input);
+    }
 }
