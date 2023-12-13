@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,9 +13,17 @@ public class InGameManager : MonoBehaviour
     {
         Instance = this;
 
+        Initialize().Forget();
+    }
+
+    async UniTask Initialize()
+    {
         Cursor.lockState = CursorLockMode.Confined;
 
         IsInitialized = true;
+        GameSceneManager.Instance.SetIsLoadComplete(true);
+
+        await UniTask.CompletedTask;
     }
 
     private void OnDestroy()
