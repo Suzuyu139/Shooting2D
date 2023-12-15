@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -28,12 +29,31 @@ public class MasterDataManager : MonoBehaviour
         switch (request.result)
         {
             case UnityWebRequest.Result.Success:
-                Debug.Log(request.downloadHandler.text);
+                ViewCSV(request.downloadHandler.text);
                 break;
 
             default:
-                Debug.LogError(request.error);
+                Debug.LogError(request.error);  
                 return;
+        }
+    }
+
+    void ViewCSV(string text)
+    {
+        StringReader reader = new StringReader(text);
+        while (reader.Peek() != -1)
+        {
+            string line = reader.ReadLine();        // ˆês‚¸‚Â“Ç‚İ‚İ
+            string[] elements = line.Split(',');    // s‚ÌƒZƒ‹‚Í,‚Å‹æØ‚ç‚ê‚é
+            for (int i = 0; i < elements.Length; i++)
+            {
+                if (elements[i] == "\"\"")
+                {
+                    continue;                       // ‹ó”’‚Íœ‹
+                }
+                elements[i] = elements[i].TrimStart('"').TrimEnd('"');
+                Debug.Log(elements[i]);
+            }
         }
     }
 }
