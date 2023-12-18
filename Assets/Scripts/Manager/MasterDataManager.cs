@@ -4,10 +4,13 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
+using MasterData;
 
 public class MasterDataManager : MonoBehaviour
 {
     public static MasterDataManager Instance { get; private set; }
+
+    public Bullet Bullet { get; private set; } = null;
 
     public bool IsInitialized { get; private set; }
 
@@ -21,21 +24,35 @@ public class MasterDataManager : MonoBehaviour
         IsInitialized = true;
     }
 
-    public async UniTask DownloadSheetAsync()
+    public async UniTask DownloadSpreadSheetAsync()
     {
-        UnityWebRequest request = UnityWebRequest.Get("https://docs.google.com/spreadsheets/d/" + SpreadSheetURL.Bullet + "/gviz/tq?tqx=out:csv&sheet=" + "Bullet");
-        await request.SendWebRequest();
+        await DownloadSheetAsync();
+        await UniTask.CompletedTask;
+    }
 
-        switch (request.result)
+    async UniTask DownloadSheetAsync()
+    {
+        foreach (var sheetURL in SpreadSheetURL.SheetURL)
         {
-            case UnityWebRequest.Result.Success:
-                ViewCSV(request.downloadHandler.text);
-                break;
+            foreach (var sheet in sheetURL.Value)
+            {
+                UnityWebRequest request = UnityWebRequest.Get("https://docs.google.com/spreadsheets/d/" + sheetURL.Key + "/gviz/tq?tqx=out:csv&sheet=" + sheet);
+                await request.SendWebRequest();
 
-            default:
-                Debug.LogError(request.error);  
-                return;
+                switch (request.result)
+                {
+                    case UnityWebRequest.Result.Success:
+                        ViewCSV(request.downloadHandler.text);
+                        break;
+
+                    default:
+                        Debug.LogError(request.error);
+                        return;
+                }
+            }
         }
+
+        await UniTask.CompletedTask;
     }
 
     void ViewCSV(string text)
