@@ -39,7 +39,6 @@ public class GameManager : MonoBehaviour
 
             return true;
         });
-        await MasterDataManager.Instance.DownloadSpreadSheetAsync();
 
         IsInitialized = true;
 

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerSetupPresenter : PresenterBase
 {
+    [SerializeField] PlayerModel _model;
     [SerializeField] Transform _playerViewParent;
 
     GameObject _playerObj;
@@ -16,7 +17,11 @@ public class PlayerSetupPresenter : PresenterBase
 
     async UniTask Initialize()
     {
-        _playerObj = await AddressablesUtility.GetAssetAsync<GameObject>("Player/Player001/Player001.prefab");
+        await UniTask.WaitUntil(() => _model.Id > 0);
+
+        var param = MasterDataManager.Instance.Player.Players.Find(x => x.Id == _model.Id);
+
+        _playerObj = await AddressablesUtility.GetAssetAsync<GameObject>(param.Address);
         if (_playerObj == null)
         {
             return;

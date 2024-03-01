@@ -14,6 +14,9 @@ public class PlayerModel : MonoBehaviour
         public void SeCursorPos(Vector2 cursorPos) => CursorPos = cursorPos;
     }
 
+    public int Id { get; private set; } = 0;
+    public void SetId(int id) => Id = id;
+
     public InputData Input { get; private set; } = new InputData();
     public void SetInput(InputData input) => Input = input;
 
