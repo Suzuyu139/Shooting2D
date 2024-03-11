@@ -21,4 +21,9 @@ public class PlayerMoveView : MonoBehaviour
     {
         return _playerTransform.localPosition;
     }
+
+    public Vector3 GetWorldPos()
+    {
+        return _playerTransform.position;
+    }
 }

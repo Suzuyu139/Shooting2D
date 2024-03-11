@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using UnityEngine.Networking;
-using MasterData;
 
 public class MasterDataManager : MonoBehaviour
 {
@@ -12,6 +10,9 @@ public class MasterDataManager : MonoBehaviour
 
     [SerializeField] Player _player;
     public Player Player => _player;
+
+    [SerializeField] Bullet _bullet;
+    public Bullet Bullet => _bullet;
 
     public bool IsInitialized { get; private set; }
 

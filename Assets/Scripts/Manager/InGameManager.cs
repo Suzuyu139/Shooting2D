@@ -7,6 +7,9 @@ public class InGameManager : MonoBehaviour
 {
     public static InGameManager Instance { get; private set; }
 
+    [SerializeField] PoolPresenter _bulletPool;
+    public PoolPresenter BulletPool => _bulletPool;
+
     public bool IsInitialized { get; private set; } = false;
 
     private void Start()

@@ -22,8 +22,12 @@ public class PoolPresenter : PresenterBase
 
         if (rentPool == null)
         {
-            Debug.LogError($"プール内にこのID：{id}のプールが見つかりませんでした。");
-            return null;
+            /*
+             * Debug.LogError($"プール内にこのID：{id}のプールが見つかりませんでした。");
+             * return null;
+             */
+            _model.AddPoolDictionary(id);
+            rentPool = GetPoolOnId(id);
         }
 
         var rentObj = rentPool.Get();
@@ -89,6 +93,16 @@ public class PoolPresenter : PresenterBase
         if (pool != null)
         {
             pool.Release(obj);
+        }
+    }
+
+    public void Return(int id)
+    {
+        ObjectPool<GameObject> pool;
+        pool = GetPoolOnId(id);
+        if (pool != null)
+        {
+            pool.Release(_model.Prefab);
         }
     }
 

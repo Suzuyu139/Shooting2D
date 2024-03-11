@@ -11,7 +11,7 @@ public class PoolModel : MonoBehaviour
     Dictionary<int, ObjectPool<GameObject>> _poolDictionary = new();
     public Dictionary<int, ObjectPool<GameObject>> PoolDictionary => _poolDictionary;
 
-    GameObject _prefab = null;
+    [SerializeField] GameObject _prefab = null;
     public GameObject Prefab => _prefab;
 
     Transform _myTransform = null;
@@ -29,6 +29,7 @@ public class PoolModel : MonoBehaviour
                         break;
 
                     case PoolType.Bullet:
+                        obj.GetComponent<BulletModel>().SetId(id);
                         break;
 
                     default:

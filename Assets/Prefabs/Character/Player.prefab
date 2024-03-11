@@ -142,6 +142,7 @@ GameObject:
   - component: {fileID: 5250820580926615620}
   - component: {fileID: 1904675247799759320}
   - component: {fileID: 8341289247635996475}
+  - component: {fileID: 7107560944574732159}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -223,7 +224,19 @@ MonoBehaviour:
     m_ActionId: 5d46cdd4-fb6e-4073-92a0-77d69404a051
     m_ActionName: Player/Look[/Mouse/delta]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1904675247799759320}
+        m_TargetAssemblyTypeName: PlayerInputPresenter, Assembly-CSharp
+        m_MethodName: OnFire
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 57243bf7-47ad-4bc5-936d-9bdd948ef3b1
     m_ActionName: Player/Fire[/Mouse/leftButton]
   - m_PersistentCalls:
@@ -283,7 +296,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6fefbbeb9ecedd4cbc6b130a29ef143, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _id: 0
   _moveSpeed: 50
+  _bulletId: 0
+  _shootInterval: 0
 --- !u!114 &5250820580926615620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -321,6 +337,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6b03bbc6b42d141488867359b6355aa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _model: {fileID: 7841975734177876278}
+  _moveView: {fileID: 8761706483501364511}
+--- !u!114 &7107560944574732159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3692172768637091600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28996df395163484c940ba6d72cb961c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _model: {fileID: 7841975734177876278}
@@ -396,7 +426,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1616638095
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

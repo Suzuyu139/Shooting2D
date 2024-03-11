@@ -17,6 +17,11 @@ public class PlayerInputPresenter : PresenterBase
 
     public void OnMove(InputAction.CallbackContext context)
     {
+        if (!_model.IsSetupInitialized)
+        {
+            return;
+        }
+
         if (context.phase == InputActionPhase.Performed)
         {
             _input.SetMove(context.ReadValue<Vector2>());
@@ -31,7 +36,25 @@ public class PlayerInputPresenter : PresenterBase
 
     public void OnCursorPos(InputAction.CallbackContext context)
     {
-        _input.SeCursorPos(context.ReadValue<Vector2>());
+        if (!_model.IsSetupInitialized)
+        {
+            return;
+        }
+
+        _input.SetCursorPos(context.ReadValue<Vector2>());
+        _model.SetInput(_input);
+    }
+
+    public void OnFire(InputAction.CallbackContext context)
+    {
+        if (!_model.IsSetupInitialized)
+        {
+            return;
+        }
+
+        var isFire = context.ReadValueAsButton();
+
+        _input.SerIsFire(isFire);
         _model.SetInput(_input);
     }
 }

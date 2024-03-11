@@ -236,4 +236,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvasGroup: {fileID: 8633329808511160172}
-  _animationSpeed: 0.5
+  _animationSpeed: 1

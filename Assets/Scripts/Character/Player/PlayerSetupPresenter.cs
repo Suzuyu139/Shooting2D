@@ -29,6 +29,7 @@ public class PlayerSetupPresenter : PresenterBase
 
         Instantiate(_playerObj, _playerViewParent);
 
+        _model.SetIsSetupInitialized(true);
         IsInitialized = true;
     }
 

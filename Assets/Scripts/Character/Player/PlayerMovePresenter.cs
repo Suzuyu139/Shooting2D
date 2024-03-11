@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
+using Cysharp.Threading.Tasks;
 
 public class PlayerMovePresenter : PresenterBase
 {
@@ -11,13 +12,20 @@ public class PlayerMovePresenter : PresenterBase
 
     Camera _mainCamera;
 
-    private void Start()
+    private async void Start()
     {
         _mainCamera = Camera.main;
 
-        this.UpdateAsObservable().Subscribe(OnUpdate).AddTo(gameObject);
+        await Initialize();
 
         IsInitialized = true;
+    }
+
+    async UniTask Initialize()
+    {
+        await UniTask.WaitUntil(() => _model.IsSetupInitialized);
+
+        this.UpdateAsObservable().Subscribe(OnUpdate).AddTo(gameObject);
     }
 
     void OnUpdate(Unit unit)
